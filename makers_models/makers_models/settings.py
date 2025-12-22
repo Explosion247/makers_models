@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'makers-models-d9f3c3627d1b.herokuapp.com',
+    'makers-models-e5ef4f65df4a.herokuapp.com/',
     '127.0.0.1'
 ]
 
@@ -96,7 +96,7 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://*makers-models-d9f3c3627d1b.herokuapp.com",
+    "https://makers-models-e5ef4f65df4a.herokuapp.com/",
     "https://*127.0.0.1:8000/",
 ]
 

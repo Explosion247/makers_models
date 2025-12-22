@@ -31,10 +31,14 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'makers-models-e5ef4f65df4a.herokuapp.com/',
+    'makers-models-e5ef4f65df4a.herokuapp.com',
     '127.0.0.1'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://makers-models-e5ef4f65df4a.herokuapp.com",
+    "https://*127.0.0.1:8000/",
+]
 
 # Application definition
 
@@ -95,10 +99,7 @@ DATABASES = {
     dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://makers-models-e5ef4f65df4a.herokuapp.com/",
-    "https://*127.0.0.1:8000/",
-]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

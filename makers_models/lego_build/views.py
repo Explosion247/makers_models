@@ -1,12 +1,11 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse
-from django.template import loader
 from django.views import generic
 from .models import Build
 # Create your views here.
 
 class LegoList(generic.ListView):
-    queryset = Build.objects.filter(status=1)
+    queryset = Build.objects.all()
     template_name = 'build/index.html'
 
 

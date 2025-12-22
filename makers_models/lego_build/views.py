@@ -4,9 +4,10 @@ from django.views import generic
 from .models import Build
 # Create your views here.
 
-class LegoList(generic.ListView):
+class Legolist(generic.ListView):
     queryset = Build.objects.all()
     template_name = 'build/index.html'
+    paginate_by = 6
 
 
 # def lego_build(request):
@@ -17,9 +18,12 @@ def build_details(request, slug):
 
     queryset = Build.objects.filter(status=1)
     post = get_object_or_404(queryset, slug=slug)
+    context = {
+        "post": post
+    }
 
     return render(
         request,
         "build/index.html",
-        {"post": post}
+        context
     )

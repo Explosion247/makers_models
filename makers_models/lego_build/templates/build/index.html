@@ -5,12 +5,14 @@
 <!-- index.html content starts here -->
 <div class="container-fluid">
     <div class="row">
+
         <div class="image-container justify-content-center">
             <img src="{% static 'images/default.jpg' %}" alt="default image">
         </div>
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
+                    
                     <div class="image-container">
 
                         <img class="card-img-top" src="{% static 'images/default.jpg' %}" alt="placeholder image">
@@ -18,7 +20,9 @@
 
                         <div class="image-flash">
                             <p class="author">
+                                {% for post in post_list %}
                                 Author: {{ post.author }}
+                                {% endfor %}
                             </p>
                         </div>
                     </div>
@@ -30,6 +34,7 @@
                     <p class="card-text text-muted h6">
                         {{ post.created_on}}
                     </p>
+
                 </div>
             </div>
         </div>

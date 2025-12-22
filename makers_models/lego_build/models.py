@@ -7,7 +7,7 @@ STATUS = ((0, "Draft"), (1, "Published"))
 
 class Build(models.Model):
 
-    # add feild for piece count and theme e.g. technic
+    # add field for piece count and theme e.g. technic
 
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
@@ -24,6 +24,8 @@ class Build(models.Model):
     
     def __str__(self):
         return f"{self.title} | made by {self.author}"
+    
+
 
 # Comment code is copied from code institue
 

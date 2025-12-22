@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse
 from django.template import loader
 from django.views import generic
@@ -9,6 +9,18 @@ class LegoList(generic.ListView):
     queryset = Build.objects.filter(status=1)
     template_name = 'build/index.html'
 
+
 # def lego_build(request):
 #     template = loader.get_template('build.html')
 #     return HttpResponse(template.render())
+
+def build_details(request, slug):
+
+    queryset = Build.objects.filter(status=1)
+    post = get_object_or_404(queryset, slug=slug)
+
+    return render(
+        request,
+        "build/index.html",
+        {"post": post}
+    )

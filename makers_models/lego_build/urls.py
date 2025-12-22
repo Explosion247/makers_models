@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.LegoList.as_view(), name='home')
+    path('', views.LegoList.as_view(), name='home'),
+    path('<slug:slug>/', views.build_details, name='build_details'),
 ]

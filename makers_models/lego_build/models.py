@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
-class Build(models.Model):
+class Post(models.Model):
 
     # add field for piece count and theme e.g. technic
 
@@ -31,7 +31,7 @@ class Build(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(
-        Build, 
+        Post, 
         on_delete=models.CASCADE, related_name="comments"
     )
     author = models.ForeignKey(

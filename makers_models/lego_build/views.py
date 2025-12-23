@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse
 from django.views import generic
-from .models import Build
+from .models import Post
 # Create your views here.
 
-class Legolist(generic.ListView):
-    queryset = Build.objects.all()
+class PostList(generic.ListView):
+    queryset = Post.objects.all()
     template_name = 'build/index.html'
     paginate_by = 6
 
@@ -16,14 +16,14 @@ class Legolist(generic.ListView):
 
 def build_details(request, slug):
 
-    queryset = Build.objects.filter(status=1)
-    post = get_object_or_404(queryset, slug=slug)
+    queryset = Post.objects.filter(status=1)
+    # post = get_object_or_404(queryset, slug=slug)
     context = {
-        "post": post
+        "post": queryset
     }
 
     return render(
         request,
-        "build/index.html",
+        "build/build.html",
         context
     )

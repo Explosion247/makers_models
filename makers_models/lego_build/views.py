@@ -14,16 +14,16 @@ class PostList(generic.ListView):
 #     template = loader.get_template('build.html')
 #     return HttpResponse(template.render())
 
-def build_details(request, slug):
+def post_details(request, slug):
 
     queryset = Post.objects.filter(status=1)
-    # post = get_object_or_404(queryset, slug=slug)
+    post = get_object_or_404(queryset, slug=slug)
     context = {
-        "post": queryset
+        "post": post,
     }
 
     return render(
         request,
-        "build/build.html",
+        "build/post_detail.html",
         context
     )

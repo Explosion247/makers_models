@@ -13,6 +13,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
+    <!-- Fugaz One static font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+    
 
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -29,7 +34,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light nav-col">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">Makers Model</a>
+            <a class="navbar-brand fugaz-one-regular" href="{% url 'home' %}"><img src="{% static 'images/logo-2.jpg' %}" alt=""> Makers Models</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -60,7 +65,26 @@
             
         </div>
     </nav>
-
+    <div class="row">>
+        <div class="card text-center m-auto" style="width: 10rem;">
+            <img class="card-img-top" src="{% static 'images/moc-lego-3d-model.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">MOC</p>
+            </div>
+        </div>
+        <div class="card text-center m-auto" style="width: 10rem;">
+            <img class="card-img-top" src="{% static 'images/parts-3d-model-pin.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Parts</p>
+            </div>
+        </div>
+        <div class="card text-center m-auto" style="width: 10rem;">
+            <img class="card-img-top" src="{% static 'images/account-char-waving.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Account</p>
+            </div>
+        </div>
+    </div>
     <main class="flex-shrink-0 main-bg">
 
         {% block content %}

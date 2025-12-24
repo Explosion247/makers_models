@@ -41,6 +41,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # Application definition
+# add whitenoise for heroku
 
 INSTALLED_APPS = [
     'django.contrib.admin',

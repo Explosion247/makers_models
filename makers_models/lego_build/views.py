@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse
 from django.views import generic
-from .models import Post
+from .models import Post, Review
+from .forms import ReviewForm
+
 # Create your views here.
 
 class PostList(generic.ListView):
     queryset = Post.objects.all()
     template_name = 'build/index.html'
-    paginate_by = 6
+    paginate_by = 10
 
 
 # def lego_build(request):
@@ -18,9 +20,26 @@ def post_details(request, slug):
 
     queryset = Post.objects.filter(status=1)
     post = get_object_or_404(queryset, slug=slug)
+    review = post.comments.all().order_by("-created_on")
+    review_count = post.comments.filter(approved=True).count()
+
+    if request.method == "POST":
+        review_form = ReviewForm(data=request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.author = request.user
+            review.post = post
+            review.save()
+
+    review_form = ReviewForm()
+    
     context = {
         "post": post,
+        "review": review,
+        "review_count": review_count,
+        "review_form": review_form,
     }
+    
 
     return render(
         request,

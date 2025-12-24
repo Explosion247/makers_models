@@ -31,7 +31,7 @@ class Post(models.Model):
 
 # Comment code is copied from code institue
 
-class Comment(models.Model):
+class Review(models.Model):
     post = models.ForeignKey(
         Post, 
         on_delete=models.CASCADE, related_name="comments"

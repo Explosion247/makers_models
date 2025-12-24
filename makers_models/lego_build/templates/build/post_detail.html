@@ -12,27 +12,81 @@
                 <img src="{{ post.image.url }}" class="scale" alt="{{ post.title }}">
                 {%endif%}
         </div>
-        <div class="col-6 col-xs-12">
+        <div class="col-6 col-xs-12 bg-light">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Info</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Reviews</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
-                </li>
+                <!-- <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Parts</button>
+                </li> -->
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h2>{{post.title}}</h2> {{ post.content }}</div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h2>Comments</h2>
+                      <!-- Displaying Comments -->
+                    <div class="row">
+                        <div class="col-md-8 card mb-4  mt-3 ">
+                        <h3>Comments:</h3>
+                        <div class="card-body">
+                            <!-- We want a for loop inside the empty control tags
+                            to iterate through each comment in comments -->
+                            {% for comment in comments %}
+                            <div class="p-2 comments
+                            {% if not comment.approved and comment.author == user %}
+                            faded{% elif not comment.approved %} d-none{% endif %}">
+                            <p class="font-weight-bold">
+                                {{ comment.author }}
+                                <span class="font-weight-normal">
+                                {{ comment.created_on }}
+                                </span> wrote:
+                            </p>
+                            <div id="comment{{ comment.id }}">
+                                {{ comment.body | linebreaks }}
+                            </div>
+                            {% if not comment.approved and comment.author == user %}
+                            <p class="approval">
+                                This comment is awaiting approval
+                            </p>
+                            {% endif %}
+                                {% if user.is_authenticated and comment.author == user %}
+                                <button class="btn btn-delete" data-comment_id="{{ comment.id }}">Delete</button>
+                                <button class="btn btn-edit" data-comment_id="{{ comment.id }}">Edit</button>
+                                {% endif %}
+                            </div>
+                            <!-- Our for loop ends here -->
+                            {% endfor %}
+                        </div>
+                        </div>
+                        <!-- Creating New Comments -->
+                        <div class="col-md-4 card mb-4 mt-3">
+                            <div class="card-body">
+                                {% if user.is_authenticated %}
+                                <h3>Leave a comment:</h3>
+                                <p>Posting as {{ user.username }}</p>
+                                <form id="commentForm" method="post" style="margin-top: 1.3rem;">
+                                    {{ comment_form | safe }}
+                                    {% csrf_token %}
+                                    <button id="submitButton" type="submit" class="btn btn-signup btn-lg">submit</button>
+                                </form>
+                                {% else %}
+                                <p>Log in to leave a comment</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>
     </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="image-container">
@@ -47,7 +101,7 @@
                     <hr />
                 </div>
             </div>
-        </div>
+        </div> -->
     
     {% if is_paginated %}
     <nav aria-label="Page navigation">

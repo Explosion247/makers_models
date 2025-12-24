@@ -3,19 +3,40 @@
 {% block content %}
 
 <!-- index.html content starts here -->
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="image-container justify-content-center">
-            <img src="{% static 'images/default.jpg' %}" alt="default image">
+        <div class="col-6 col-xs-12">
+                {% if "placeholder" in post.featured_image.url %}
+                <img src="{% static 'images/default.jpg' %}" class="scale" alt="placeholder">
+                {% else %}
+                <img src="{{ post.image.url }}" class="scale" alt="{{ post.title }}">
+                {%endif%}
         </div>
+        <div class="col-6 col-xs-12">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h2>{{post.title}}</h2> {{ post.content }}</div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
+
+            </div>
+        </div>
+    </div>
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="image-container">
-
                         <img class="card-img-top" src="{% static 'images/default.jpg' %}" alt="placeholder image">
-
-
                         <div class="image-flash">
                             <p class="author">
                                 Author: {{ post.author }}
@@ -23,17 +44,11 @@
                         </div>
                     </div>
                         <h2 class="card-title">{{ post.title }}</h2>
-
-                    </a>
-
                     <hr />
-                    <p class="card-text text-muted h6">
-                        {{ post.created_on}}
-                    </p>
                 </div>
             </div>
         </div>
-    </div>
+    
     {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">

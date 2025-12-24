@@ -1,6 +1,9 @@
 {% load static %}
 
 {% url 'home' as home_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -58,8 +61,20 @@
                     </li>                    
                 </ul>
                 <form class="form-inline">
-                    <button type="button" class="btn btn-dark">Login</button>
-                    <button type="button" class="btn btn-dark">Sign up</button>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item btn btn-dark">
+                            <a class=" {% if request.path == logout_url %}active{% endif %} link-light" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item btn btn-dark">
+                        <a class="{% if request.path == signup_url %}active{% endif %} link-light" aria-current="page"
+                            href="{% url 'account_signup' %}">Sign up</a>
+                    </li>
+                    <li class="nav-item btn btn-dark">
+                        <a class="{% if request.path == login_url %}active{% endif %} link-light" aria-current="page" href="{% url 'account_login' %}">Login</a>
+                    </li>
+                    {% endif %}
+
                 </form>
             </div>
             

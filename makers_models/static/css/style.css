@@ -8,13 +8,13 @@ body {
     font-weight: 700;
     color: #4a4a4f;
 }
-
-.red-o {
-    color: #e84610;
-}
-
 .thin {
     font-weight: 300;
+}
+
+/* colours  bg stands fo background*/
+.red-o {
+    color: #e84610;
 }
 
 .light-bg {
@@ -22,12 +22,16 @@ body {
 }
 
 .dark-bg {
-    background-color: #445261;
+    background-color: #92aa83;
 }
 
 .main-bg {
-    background-color: #f9fafc;
+    background-color: #f1f7ee;
 }
+.nav-col { 
+    background-color: #e0edc5;
+}
+/* cards and images */
 
 .card {
     border: none;

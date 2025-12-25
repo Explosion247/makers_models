@@ -4,9 +4,9 @@ error - unable to get variables to function within html, due to using a class mo
 
 fix - after speeking to my teacher, he was able to point out what variable i should be using which was object_list.
 
-
-
 error - when on heroku, atempting to log in would cause google to flag a Dangerious page claiming the website was phishing for imformation
+
+fix - this has fixed its self with later deployment, i am unsure about why as this did not appear when hosting locally
 
 errors - when trying to submit a comment it would come up with 'ReviewModel' object is not iterable
 

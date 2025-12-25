@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-6 col-xs-12">
-                {% if "placeholder" in build.featured_image.url %}
+                {% if "placeholder" in build.image.url %}
                 <img src="{% static 'images/default.jpg' %}" class="scale" alt="placeholder">
                 {% else %}
                 <img src="{{ build.image.url }}" class="scale" alt="{{ build.title }}">
@@ -27,7 +27,7 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h2>{{build.title}}</h2><p>{{build.content}}</p></div>
+                    <h2>{{build.title}}</h2><p>{{build.content | safe}}</p></div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                       <!-- Displaying Comments -->
                     <div class="row">
@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <!-- We want a for loop inside the empty control tags
                             to iterate through each comment in comments -->
-                            {% for comment in review %}
+                            {% for comment in reviews %}
                             <div class="p-2 comments
                             {% if not comment.approved and comment.author == user %}
                             faded{% elif not comment.approved %} d-none{% endif %}">
@@ -46,7 +46,7 @@
                                 {{ comment.created_on }}
                                 </span> wrote:
                             </p>
-                            <div id="comment{{ comment.id }}">
+                            <div data-bs-spy="scroll" id="comment{{ comment.id }}">
                                 {{ comment.body | linebreaks }}
                             </div>
                             {% if not comment.approved and comment.author == user %}

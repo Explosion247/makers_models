@@ -20,28 +20,28 @@ def build_details(request, slug):
 
     queryset = Build.objects.filter(status=1)
     build = get_object_or_404(queryset, slug=slug)
-    review_text = build.comments.all().order_by("-created_on")
+    reviews = build.comments.all().order_by("-created_on")
+    
     review_count = build.comments.filter(approved=True).count()
+    review_form = ReviewForm()
 
     if request.method == "POST":
         review_form = ReviewForm(data=request.POST)
         if review_form.is_valid():
-            review_text = review_form.save(commit=False)
-            review_text.author = request.user
-            review_text.build = build
-            review_text.save()
+            review = review_form.save(commit=False)
+            review.author = request.user
+            review.build = build
+            review.save()
 
-    review_form = ReviewForm()
-    
     context = {
         "build": build,
-        "review": review_text,
+        "reviews": reviews,
         "review_count": review_count,
         "review_form": review_form,
     }
     
     return render(
         request,
-        "build/Build_detail.html",
+        "build/build_detail.html",
         context
     )

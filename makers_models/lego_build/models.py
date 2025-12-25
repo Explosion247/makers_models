@@ -32,20 +32,25 @@ class Build(models.Model):
 # Comment code is copied from code institue
 
 class ReviewModel(models.Model):
+
+    """
+    Stores a single comment entry related to :model:`auth.User`
+    and :model:`blog.post`
+    """
+
     build = models.ForeignKey(
-        Build, 
-        on_delete=models.CASCADE, related_name="comments"
+        Build, on_delete=models.CASCADE, related_name="comments"
     )
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="comments_author"
+        User, on_delete=models.CASCADE, related_name="commenter"
     )
     image = CloudinaryField('image', default='placeholder')
     body = models.TextField()
     approved = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
-
+    
     class Meta:
-        ordering = ["created_on"]
+        ordering = ["-created_on"]
     
     def __str__(self):
         return f"{self.body} by {self.author}"

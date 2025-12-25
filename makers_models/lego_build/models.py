@@ -6,7 +6,7 @@ from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
-class Post(models.Model):
+class Build(models.Model):
 
     # add field for piece count and theme e.g. technic
 
@@ -31,9 +31,9 @@ class Post(models.Model):
 
 # Comment code is copied from code institue
 
-class Review(models.Model):
-    post = models.ForeignKey(
-        Post, 
+class ReviewModel(models.Model):
+    build = models.ForeignKey(
+        Build, 
         on_delete=models.CASCADE, related_name="comments"
     )
     author = models.ForeignKey(
@@ -48,4 +48,4 @@ class Review(models.Model):
         ordering = ["created_on"]
     
     def __str__(self):
-        return f"Comment {self.body} by {self.author}"
+        return f"{self.body} by {self.author}"

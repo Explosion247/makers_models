@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <!-- index.html content starts here -->
 <div class="container">
     <div class="row">
         <div class="col-6 col-xs-12">
-                {% if "placeholder" in post.featured_image.url %}
+                {% if "placeholder" in build.featured_image.url %}
                 <img src="{% static 'images/default.jpg' %}" class="scale" alt="placeholder">
                 {% else %}
-                <img src="{{ post.image.url }}" class="scale" alt="{{ post.title }}">
+                <img src="{{ build.image.url }}" class="scale" alt="{{ build.title }}">
                 {%endif%}
         </div>
         <div class="col-6 col-xs-12 bg-light">
@@ -26,7 +27,7 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h2>{{post.title}}</h2> {{ post.content }}</div>
+                    <h2>{{build.title}}</h2><p>{{build.content}}</p></div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                       <!-- Displaying Comments -->
                     <div class="row">
@@ -35,7 +36,7 @@
                         <div class="card-body">
                             <!-- We want a for loop inside the empty control tags
                             to iterate through each comment in comments -->
-                            {% for comment in comments %}
+                            {% for comment in review %}
                             <div class="p-2 comments
                             {% if not comment.approved and comment.author == user %}
                             faded{% elif not comment.approved %} d-none{% endif %}">
@@ -50,7 +51,7 @@
                             </div>
                             {% if not comment.approved and comment.author == user %}
                             <p class="approval">
-                                This comment is awaiting approval
+                                This review is awaiting approval
                             </p>
                             {% endif %}
                                 {% if user.is_authenticated and comment.author == user %}
@@ -71,13 +72,46 @@
             </div>
         </div>                        
         <div class="col-md-4 card mb-4 mt-3">
+
+                    {% for x in object_list %}
+        <div class="col-md-4">
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="image-container">
+                        <a href="{% url 'build_details' x.slug %}">
+                            {% if "placeholder" in x.image.url %}
+                            <img class="card-img-top" src="{% static 'images/default.jpg' %}" alt="placeholder image">
+                            {% else %}
+                            <img class="card-img-top" src="{{ x.image.url }}" alt="{{ x.title }}">
+                            {% endif %}
+                        </a>
+                        <!-- <div class="image-flash">
+                            
+                                <p class="author">  
+                                    Author: {{ x.author }}
+                                </p>
+                            
+                        </div> -->
+                    </div>
+                    <a href="{% url 'build_details' x.slug %}" class="post-link">
+                        <h2 class="card-title">{{ x.title }}</h2>
+                        <p>Created by {{x.author}}</p>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        {% endfor %}
+
+            <!-- add a 1 to 5 score -->
             <!-- Creating New Comments -->
             <div class="card-body">
                 {% if user.is_authenticated %}
-                <h3>Leave a comment:</h3>
+                <h3>Leave a review:</h3>
                 <p>Posting as {{ user.username }}</p>
                 <form id="commentForm" method="post" style="margin-top: 1.3rem;">
-                    {{ comment_form | safe }}
+                    {{ review_form | safe }}
                     {% csrf_token %}
                     <button id="submitButton" type="submit" class="btn btn-signup btn-lg">submit</button>
                 </form>
@@ -94,11 +128,11 @@
                         <img class="card-img-top" src="{% static 'images/default.jpg' %}" alt="placeholder image">
                         <div class="image-flash">
                             <p class="author">
-                                Author: {{ post.author }}
+                                Author: {{ build.author }}
                             </p>
                         </div>
                     </div>
-                        <h2 class="card-title">{{ post.title }}</h2>
+                        <h2 class="card-title">{{ build.title }}</h2>
                     <hr />
                 </div>
             </div>

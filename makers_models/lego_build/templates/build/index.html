@@ -6,16 +6,16 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="image-container text-center img-fluid">
+        <div class="image-container text-center img-fluid mx-auto xl-mx-5" style="max-width: 1000px">
             <img class="card-img-top" src="{% static 'images/someone-building-lego.jpg' %}" alt="placeholder image">
         </div>
         {% for x in object_list %}
         <div class="col-md-4">
             
             <div class="card mb-4">
-                <div class="card-body">
+                <div class="card-body ">
                     <div class="image-container">
-                        <a href="{% url 'Build_details' x.slug %}">
+                        <a href="{% url 'build_details' x.slug %}">
                             {% if "placeholder" in x.image.url %}
                             <img class="card-img-top" src="{% static 'images/default.jpg' %}" alt="placeholder image">
                             {% else %}
@@ -30,7 +30,7 @@
                             
                         </div> -->
                     </div>
-                    <a href="{% url 'Build_details' x.slug %}" class="post-link">
+                    <a href="{% url 'build_details' x.slug %}" class="post-link">
                         <h2 class="card-title">{{ x.title }}</h2>
                         <p>Created by {{x.author}}</p>
                     </a>

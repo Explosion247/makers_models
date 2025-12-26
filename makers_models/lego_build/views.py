@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, reverse
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.views import generic
 from .models import Build, ReviewModel
 from .forms import ReviewForm
@@ -45,3 +45,28 @@ def build_details(request, slug):
         "build/build_detail.html",
         context
     )
+
+def review_edit(request, slug, comment_id):
+
+    if request.method == "POST":
+        queryset = Build.objects.filter(status=1)
+        build = get_object_or_404(queryset, slug=slug)
+        review = get_object_or_404(ReviewModel, pk=comment_id)
+        review_form = ReviewForm(data=request.POST, instance=review)
+
+        if review_form.is_valid() and review.author == request.user:
+            review = review_form.save(commit=False)
+            review.build = build
+            review.approved = False
+            review.save()
+
+        return HttpResponseRedirect(reverse('build_details', args=[slug]))
+    
+def delete_review(request, slug, comment_id):
+    queryset = Build.objects.filter(status=1)
+    build = get_object_or_404(queryset, slug=slug)
+    review_form = get_object_or_404(ReviewModel, pk=comment_id)
+    if review_form.author == request.user:
+        review_form.delete()
+    
+        return HttpResponseRedirect(reverse('build_details', args=[slug]))

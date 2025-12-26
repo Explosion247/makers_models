@@ -12,3 +12,10 @@ errors - when trying to submit a comment it would come up with 'ReviewModel' obj
 
 fix - On the views page, rename reviews within the if statement to review, the wrong variable was being sent into the render() function
 
+error - When editing the reviews, the edit would bring up both the review and the ratings
+
+fix - to fix this i separated the inputs into two separate div's and then in the comments.js file look for id=review_body to ensure that only the text would appear
+
+error - when loading the reviews, if you had uploaded an image it would not display the image but would show the url
+
+temporary fix - remove the option to upload an image and remove the displaying of the image.

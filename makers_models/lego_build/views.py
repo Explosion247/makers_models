@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
 from .models import Build, ReviewModel
@@ -70,3 +70,22 @@ def delete_review(request, slug, comment_id):
         review_form.delete()
     
         return HttpResponseRedirect(reverse('build_details', args=[slug]))
+    
+def toggle_like(request, slug):
+    queryset = Build.objects.filter(status=1)
+    build = get_object_or_404(queryset, slug=slug)
+
+    if request.user in build.liked_by.all():
+        build.liked_by.remove(request.user)
+    else:
+        build.liked_by.add(request.user)
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+def liked_builds(request):
+    builds = request.user.liked_builds.filter(status=1)
+    print(builds)
+    return render(
+        request, 
+        'build/account.html',
+        {'builds': builds}
+        )

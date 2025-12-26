@@ -20,13 +20,19 @@ class Build(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     updated_on = models.DateTimeField(auto_now=True)
+    liked_by = models.ManyToManyField(
+        User,
+        related_name='liked_builds',
+        blank=True
+    )
 
     class Meta:
         ordering = ["-created_on", 'author']
     
     def __str__(self):
         return f"{self.title} | made by {self.author}"
-    
+    def total_likes(self):
+        return self.liked_by.count()
 
 
 # Comment code is copied from code institue

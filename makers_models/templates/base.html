@@ -46,7 +46,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-                            href="#">Home</a>
+                            href="{% url 'home' %}">Home</a>
                     </li>
                     <li class = "nav-item ">
                         <a class = "nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
@@ -94,7 +94,9 @@
             </div>
         </div>
         <div class="card text-center m-auto" style="width: 10rem;">
-            <img class="card-img-top" src="{% static 'images/account-char-waving.jpg' %}" alt="Card image cap">
+            <a href=""><img class="card-img-top" src="{% static 'images/account-char-waving.jpg' %}" alt="Card image cap"></a>
+            
+
             <div class="card-body">
                 <p class="card-text">Account</p>
             </div>

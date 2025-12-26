@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<h1>Your Liked Builds</h1>
+
+{% for build in builds %}
+  <div class="build">
+    <h3>{{ build.title }}</h3>
+    <p>By {{ build.author.username }} | Created {{ build.created_on }}</p>
+
+    {% if build.image %}
+      <img src="{{ build.image.url }}" class="img-fluid" alt="{{ build.title }}">
+    {% endif %}
+
+    <p>{{ build.content }}</p>
+
+    <form method="post" action="{% url 'toggle_like' build.slug %}">
+      {% csrf_token %}
+      <button type="submit">
+        {% if user in build.liked_by.all %}
+          ❤️ Liked
+        {% else %}
+          🤍 Like
+        {% endif %}
+        ({{ build.total_likes }})
+      </button>
+    </form>
+  </div>
+{% empty %}
+  <p>You haven’t liked any builds yet.</p>
+{% endfor %}
+
+{% endblock content %}

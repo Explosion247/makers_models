@@ -18,18 +18,18 @@
 
     <form method="post" action="{% url 'toggle_like' build.slug %}">
       {% csrf_token %}
-      <button type="submit">
+      <button type="submit" class="btn btn-outline-primary">
         {% if user in build.liked_by.all %}
-          ❤️ Liked
+          &#10084; Liked
         {% else %}
-          🤍 Like
+          &#9825; Like
         {% endif %}
         ({{ build.total_likes }})
       </button>
     </form>
   </div>
 {% empty %}
-  <p>You haven’t liked any builds yet.</p>
+  <p>You haven't liked any builds yet.</p>
 {% endfor %}
 
 {% endblock content %}

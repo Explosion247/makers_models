@@ -78,28 +78,23 @@
         </div>                        
         <div class="col-md-4 card mb-4 mt-3">
 
-            
-            {% for build in builds %}
             <div class="build">
-                <h3>{{ build.title }}</h3>
-                {% if build.image %}
-                <img src="{{ build.image.url }}" class="img-fluid">
-                {% endif %}
-                <p>{{ build.body }}</p>
-
-                <form method="post" action="{% url 'toggle_like' build.id %}">
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'toggle_like' build.slug %}">
                 {% csrf_token %}
-                <button type="submit">
+                <button type="submit" class="btn btn-outline-primary">
                     {% if user in build.liked_by.all %}
-                    ❤️ Liked
+                    &#10084; Liked
                     {% else %}
-                    🤍 Like
+                    &#9825; Like
                     {% endif %}
                     ({{ build.total_likes }})
                 </button>
                 </form>
+                {% else %}
+                <p><a href="{% url 'account_login' %}">Log in</a> to like this build.</p>
+                {% endif %}
             </div>
-            {% endfor %}
 
             {% for x in object_list %}
             <div class="col-md-4">

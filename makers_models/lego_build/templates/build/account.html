@@ -3,7 +3,16 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+<!-- Add information about the user -->
+<!-- maybe add ability to delete acccount -->
+<!-- finish read me -->
+<!-- create comming soon page -->
+<!-- create doc strings for functions -->
+
+
 <h1>Your Liked Builds</h1>
+
+<!-- create cards for liked builds -->
 
 {% for build in builds %}
   <div class="build">
@@ -13,8 +22,6 @@
     {% if build.image %}
       <img src="{{ build.image.url }}" class="img-fluid" alt="{{ build.title }}">
     {% endif %}
-
-    <p>{{ build.content }}</p>
 
     <form method="post" action="{% url 'toggle_like' build.slug %}">
       {% csrf_token %}

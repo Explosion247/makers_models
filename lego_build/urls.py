@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.BuildList.as_view(), name='home'),
     path('account/', views.liked_builds, name='account'),
+    path('upload/', views.build_upload, name='build_upload'),
     path('<slug:slug>/', views.build_details, name='build_details'),
     path('<slug:slug>/edit_comment/<int:comment_id>',
          views.review_edit, name='comment_edit'),

@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
+from django.utils.text import slugify
 from .models import Build, ReviewModel
-from .forms import ReviewForm
+from .forms import ReviewForm, BuildForm
 
 # Create your views here.
 
@@ -82,10 +83,44 @@ def toggle_like(request, slug):
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 def liked_builds(request):
-    builds = request.user.liked_builds.filter(status=1)
-    print(builds)
+    builds = (
+        request.user.liked_builds.filter(status=1)
+        if request.user.is_authenticated
+        else Build.objects.none()
+    )
+    upload_form = BuildForm()
     return render(
-        request, 
+        request,
         'build/account.html',
-        {'builds': builds}
+        {'builds': builds, 'upload_form': upload_form}
         )
+
+
+def build_upload(request):
+    if request.method != "POST":
+        return redirect('account')
+
+    if not request.user.is_authenticated:
+        return redirect('account')
+
+    form = BuildForm(request.POST, request.FILES)
+    if form.is_valid():
+        build = form.save(commit=False)
+        build.author = request.user
+        base_slug = slugify(build.title)
+        slug = base_slug
+        counter = 1
+        while Build.objects.filter(slug=slug).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+        build.slug = slug
+        build.status = 1
+        build.save()
+        return redirect('account')
+
+    builds = request.user.liked_builds.filter(status=1)
+    return render(
+        request,
+        'build/account.html',
+        {'builds': builds, 'upload_form': form}
+    )

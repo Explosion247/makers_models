@@ -9,34 +9,57 @@
 <!-- create comming soon page -->
 <!-- create doc strings for functions -->
 
+<!-- account page needs to go to sign up when not logged in-->
 
-<h1>Your Liked Builds</h1>
-
-<!-- create cards for liked builds -->
-
-{% for build in builds %}
-  <div class="build">
-    <h3>{{ build.title }}</h3>
-    <p>By {{ build.author.username }} | Created {{ build.created_on }}</p>
-
-    {% if build.image %}
-      <img src="{{ build.image.url }}" class="img-fluid" alt="{{ build.title }}">
-    {% endif %}
-
-    <form method="post" action="{% url 'toggle_like' build.slug %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-outline-primary">
-        {% if user in build.liked_by.all %}
-          &#10084; Liked
-        {% else %}
-          &#9825; Like
-        {% endif %}
-        ({{ build.total_likes }})
-      </button>
-    </form>
+<h1>Account</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <p>Username: {{ user }}</p>
+      <p>Email: {{ user.email }}</p>
+    </div>
+    <div class="col-md-8 mb-3">
+      <h3>Upload a Build</h3>
+      {% if user.is_authenticated %}
+      <form method="post" action="{% url 'build_upload' %}" enctype="multipart/form-data" class="mt-2">
+        {% csrf_token %}
+        {{ upload_form|crispy }}
+        <button type="submit" class="btn btn-primary">Submit Build</button>
+      </form>
+      {% else %}
+      <p>Please sign in to upload your own build.</p>
+      {% endif %}
+    </div>
   </div>
-{% empty %}
-  <p>You haven't liked any builds yet.</p>
-{% endfor %}
+</div>
 
+
+<h2>Your Liked Builds</h2>
+<!-- create cards for liked builds -->
+<div class="container-fluid">
+  <div class="row">
+    {% for build in builds %}
+    <div class="card build col-md-4" style="width: 18rem;">
+      <img src="{{ build.image.url }}" class="card-img-top img-fluid" alt="{{ build.title }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ build.title }}</h5>
+        <p class="card-text">By {{ build.author.username }} | Created {{ build.created_on }}</p>
+            <form method="post" action="{% url 'toggle_like' build.slug %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-primary">
+            {% if user in build.liked_by.all %}
+              &#10084; Liked
+            {% else %}
+              &#9825; Like
+            {% endif %}
+            ({{ build.total_likes }})
+          </button>
+        </form>
+      </div>
+    </div>
+    {% empty %}
+      <p>You haven't liked any builds yet.</p>
+    {% endfor %}
+  </div>
+</div>
 {% endblock content %}

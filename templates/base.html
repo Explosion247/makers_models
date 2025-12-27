@@ -49,15 +49,15 @@
                             href="{% url 'home' %}">Home</a>
                     </li>
                     <li class = "nav-item ">
-                        <a class = "nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-                            href="#">MOC</a>
+                        <a class = "nav-link" aria-current="page"
+                            href="{% url 'coming_soon' 'moc' %}">MOC</a>
                     </li>
                     <li class = "nav-item" >
-                        <a class = "nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-                            href="#">Official sets</a>
+                        <a class = "nav-link" aria-current="page"
+                            href="{% url 'coming_soon' 'official-sets' %}">Official sets</a>
                     </li><li class = "nav-item">
-                        <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-                            href="#">Parts</a>
+                        <a class="nav-link" aria-current="page"
+                            href="{% url 'coming_soon' 'parts' %}">Parts</a>
                     </li>                    
                 </ul>
                 <form class="form-inline">
@@ -82,21 +82,31 @@
     </nav>
     <div class="row">>
         <div class="card text-center m-auto" style="width: 10rem;">
-            <img class="card-img-top" src="{% static 'images/moc-lego-3d-model.jpg' %}" alt="Card image cap">
+            <a href="{% url 'coming_soon' 'MOC' %}">
+                <img class="card-img-top" src="{% static 'images/moc-lego-3d-model.jpg' %}" alt="Card image cap">
+            </a>
             <div class="card-body">
                 <p class="card-text">MOC</p>
             </div>
         </div>
         <div class="card text-center m-auto" style="width: 10rem;">
-            <img class="card-img-top" src="{% static 'images/parts-3d-model-pin.jpg' %}" alt="Card image cap">
+            <a href="{% url 'coming_soon' 'parts' %}">
+                <img class="card-img-top" src="{% static 'images/parts-3d-model-pin.jpg' %}" alt="Card image cap">
+            </a>
             <div class="card-body">
                 <p class="card-text">Parts</p>
             </div>
         </div>
         <div class="card text-center m-auto" style="width: 10rem;">
-            <a href="{% url 'account' %}"><img class="card-img-top" src="{% static 'images/account-char-waving.jpg' %}" alt="Card image cap"></a>
-            
-
+            {% if user.is_authenticated %}
+            <a href="{% url 'account' %}">
+                <img class="card-img-top" src="{% static 'images/account-char-waving.jpg' %}" alt="Card image cap">
+            </a>
+            {% else %}
+            <a href="{% url 'account_login' %}">
+                <img class="card-img-top" src="{% static 'images/account-char-waving.jpg' %}" alt="Card image cap">
+            </a>
+            {% endif %}
             <div class="card-body">
                 <p class="card-text">Account</p>
             </div>

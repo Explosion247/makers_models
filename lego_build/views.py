@@ -88,11 +88,20 @@ def liked_builds(request):
         if request.user.is_authenticated
         else Build.objects.none()
     )
+    user_builds = (
+        Build.objects.filter(author=request.user).order_by("-created_on")
+        if request.user.is_authenticated
+        else Build.objects.none()
+    )
     upload_form = BuildForm()
     return render(
         request,
         'build/account.html',
-        {'builds': builds, 'upload_form': upload_form}
+        {
+            'builds': builds,
+            'user_builds': user_builds,
+            'upload_form': upload_form
+        }
         )
 
 
@@ -123,4 +132,16 @@ def build_upload(request):
         request,
         'build/account.html',
         {'builds': builds, 'upload_form': form}
+    )
+
+
+def coming_soon(request, section):
+    """
+    Simple placeholder view for upcoming sections.
+    """
+    section_title = section.replace('-', ' ').title()
+    return render(
+        request,
+        'build/coming_soon.html',
+        {'section': section_title}
     )

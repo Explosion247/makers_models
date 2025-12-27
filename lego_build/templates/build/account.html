@@ -11,17 +11,48 @@
 
 <!-- account page needs to go to sign up when not logged in-->
 
-<h1>Account</h1>
+
 <div class="container-fluid">
+  <h1>Account</h1>
   <div class="row">
     <div class="col-md-4 mb-3">
       <p>Username: {{ user }}</p>
       <p>Email: {{ user.email }}</p>
+      {% if user_builds %}
+      <h4>Your Builds</h4>
+      <div id="userBuildsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          {% for build in user_builds %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="card">
+              {% if build.image %}
+              <img src="{{ build.image.url }}" class="card-img-top" alt="{{ build.title }}">
+              {% endif %}
+              <div class="card-body">
+                <h5 class="card-title mb-1">
+                  {{ build.title }}
+                </h5>
+                <p class="card-text text-muted mb-2">{{ build.created_on }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#userBuildsCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#userBuildsCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      {% endif %}
     </div>
     <div class="col-md-8 mb-3">
       <h3>Upload a Build</h3>
       {% if user.is_authenticated %}
-      <form method="post" action="{% url 'build_upload' %}" enctype="multipart/form-data" class="mt-2">
+      <form method="post" action="{% url 'build_upload' %}" enctype="multipart/form-data" class="mt-2 me-4">
         {% csrf_token %}
         {{ upload_form|crispy }}
         <button type="submit" class="btn btn-primary">Submit Build</button>

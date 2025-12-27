@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="container py-5 text-center">
+  <img src="{% static 'images/logo-2.jpg' %}" alt="Makers Models" class="img-fluid mb-4" style="max-width: 180px;">
+  <h1 class="mb-3">{{ section }} - Coming Soon</h1>
+  <p class="lead mb-4">We’re putting the finishing touches on this area. Check back soon for fresh builds, guides, and more.</p>
+  <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+</section>
+{% endblock content %}

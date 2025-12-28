@@ -62,6 +62,7 @@
                 </ul>
                 <form class="form-inline">
                     {% if user.is_authenticated %}
+                    <ul>
                     <li class="nav-item btn btn-dark">
                             <a class=" {% if request.path == logout_url %}active{% endif %} link-light" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
                     </li>
@@ -73,6 +74,7 @@
                     <li class="nav-item btn btn-dark">
                         <a class="{% if request.path == login_url %}active{% endif %} link-light" aria-current="page" href="{% url 'account_login' %}">Login</a>
                     </li>
+                    </ul>
                     {% endif %}
 
                 </form>

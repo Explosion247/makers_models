@@ -165,7 +165,17 @@ When you select your account on heroku, select new and create new app - give the
 
 ## Testing
 
+Every application that is being build requires tesdting to make sure that everything is working correctly. This is to make sure that the user has a good experiance and would like to use the application again. 
+
 ### Manual Testing
+
+The first type of testing that will occur will be manual testing, and this helps alot when it comes to reducing errors. as you are creating the application you will do manual testing to ensure it is working before you work on the next section.
+
+The manual testing table is listed below
+![Manual Testing table](./static/images/test-table.png)
+
+### Validation Testing
+
 
 ### Lighthouse Testing
 

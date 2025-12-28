@@ -54,6 +54,24 @@ while making the build page, most of the page is the same as the wireframe, howe
 
  On this page i decided to change the users builds into a carousel to reduce blank space on the page, and place the upload build form next to it allowing a user to easily upload an build. I have also added in the ability to like builds and they will show up beneath the form and carosel.
 
+### Pages
+
+<details>
+<summary>Main Page</summary>
+
+![Main Page](/static/images/main-page.png)
+</details>
+<details>
+<summary>Build Page</summary>
+
+![Build Page](/static/images/build-page.png)
+</details>
+<details>
+<summary>Account Page</summary>
+
+![Account Page](/static/images/account-page.png)
+</details>
+
 ### User Stories
 <details>
 <summary>As a **Lego Designer**, I can **upload and edit my designs** on a website so that I can **share my designs with other people**.</summary>
@@ -176,8 +194,61 @@ The manual testing table is listed below
 
 ### Validation Testing
 
+Validation testing is used to ensure that the code is following best practices
+
+### HTML
+
+When testing the HTML using validation testing, there were 3 errors that appeared for the main page, the first 2 were using a list within a for without the ul elements, and the last one was a trailing slash, these were both fixed so there are no more errors for the main page
+
+![Main page validation](/static/images/html-validation-main-page.png)
+
+Testing the build page it came up with the same errors for the main page but it also had an error due to aria-labelledby attribute, to fix this i had to add a role attribute to the div.
+
+![Build page fail](/static/images/html-validation-build-page-fail.png)
+![Build page pass](/static/images/html-validation-build-page-pass.png)
+
+When testing the account page, the only errors that appeared are the ones that appeared with the main page because they where within the base.html after fixing these within the base for the previous page.
+
+![account page validation](/static/images/html-validation-account-page.png)
+
+### JavaScript
+
+Testing the JavaScript the only error that appeared was one undefined variable, however this is due to the installation of bootstrap so there are no error within the JavaScript
+
+![JavaScript Validation](/static/images/js-validation.png)
+
+### CSS
+
+when testing the css there were no errors that had appeared
+
+![CSS Validation](/static/images/css-validation.png)
 
 ### Lighthouse Testing
+
+Light house testing is used to test the performance, accessibility and best practices, each of these are tested once the website has loaded as they are the frontend of the site. The results for these shown in a 0-100.
+
+Performance is used to check how well the website has loaded, while accessibility is how easy it would be for people to use the website and finally best practices is how the website runs, for example whether a website uses HTTPS or not.
+
+All of these pages have received a similar score within the lighthouse testing, and each of these are due to the same reason. The performance score was around the low 70's due to image delivery. While the best practices have received a score in the mid 50's, this is due to HTTP response, as the site uses HTTP rather than HTTPS. When you load the website google will automatically upgrade the website from HTTP to HTTPS. Finally the Accessibility is in high 90's, the only problem that appears is that the background and foreground colours do not have high enough contrast.
+
+<details>
+<summary>Main page lighthouse testing</summary>
+
+![Main page Lighthouse](/static/images/main-page-lighthouse.png)
+</details>
+<details>
+<summary>Build page Lighthouse testing</summary>
+
+![Build page lighthouse](/static/images/build-page-lighthouse.png)
+</details>
+<details>
+<summary>Account page lighthouse testing</summary>
+
+![Account page lighthouse](/static/images/account-page-lighthouse.png)
+</details>
+
+
+
 
 ## Credits and References
  

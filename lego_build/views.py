@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponseRedirect
 from django.views import generic
+from django.contrib import messages
 from django.utils.text import slugify
 from .models import Build, ReviewModel
 from .forms import ReviewForm, BuildForm
@@ -33,6 +34,10 @@ def build_details(request, slug):
             review.author = request.user
             review.build = build
             review.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Review has been submitted and is waiting for approval'
+            )
 
     context = {
         "build": build,
@@ -60,6 +65,9 @@ def review_edit(request, slug, comment_id):
             review.build = build
             review.approved = False
             review.save()
+            messages.add_message(request, messages.SUCCESS, 'Review Updated')
+        else:
+            messages.add_message(request, messages.ERROR, 'Error updating review')
 
         return HttpResponseRedirect(reverse('build_details', args=[slug]))
     
@@ -67,8 +75,12 @@ def delete_review(request, slug, comment_id):
     queryset = Build.objects.filter(status=1)
     build = get_object_or_404(queryset, slug=slug)
     review_form = get_object_or_404(ReviewModel, pk=comment_id)
+    
     if review_form.author == request.user:
         review_form.delete()
+        messages.add_message(request, messages.SUCCESS, 'Review deleted!')
+    else:
+        messages.add_message(request, messages.ERROR, 'You can only delete your own reviews')
     
         return HttpResponseRedirect(reverse('build_details', args=[slug]))
     
@@ -125,7 +137,10 @@ def build_upload(request):
         build.slug = slug
         build.status = 1
         build.save()
+        messages.add_message(request, messages.SUCCESS, 'Your build has been sucessfully uploaded') 
         return redirect('account')
+    else:
+        messages.add_message(request, messages.ERROR, 'There has been an Error while uploading your build')
 
     builds = request.user.liked_builds.filter(status=1)
     return render(

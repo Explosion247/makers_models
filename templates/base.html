@@ -80,6 +80,17 @@
             
         </div>
     </nav>
+
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-2" role="alert">
+            {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <div class="row">>
         <div class="card text-center m-auto" style="width: 10rem;">
             <a href="{% url 'coming_soon' 'MOC' %}">

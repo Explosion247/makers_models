@@ -1,86 +1,205 @@
 # Makers Models
 
-A Django 4.2 site for sharing LEGO builds, with authentication via Allauth, reviews/comments, and static assets served by Whitenoise.
+Heroku link: https://makers-models-e5ef4f65df4a.herokuapp.com/
 
-## Table of Contents
-- Features
-- Tech Stack
-- Project Structure
-- Local Setup
-- Running Locally
-- Static Files
-- Deployment (Heroku)
-- Environment Variables
-- Tests
-- Troubleshooting
-- License
+## Site Overview
+The aim of this website is to allow people to create and share their MOC's (My Own Creations), while also letting other people browse to find new designs to build or get some idea's of their own.
+
+This website will allow someone to log in to upload their designs with a name, description and image. They will also be able to leave comments on post and save builds for later by liking the build.
+
+If you are not logged in then you will be able to create an account or just browse the website and see all the builds that have been uploaded.
+
+## Table of content
+
+- [Design](#design)
+- - [Colours](#colours)
+- - [Wireframes](#wireframes)
+- - [User Stories](#user-stories)
+- [Features](#features)
+- [Deployment and testing](#deployment-and-testing)
+- [Technologies Used](#technologies-used)
+- [Credits and References](#credits-and-references)
+- - [Images](#images)
+- - [Code](#code)
+
+## Design
+
+### Colours
+
+![Colour pallet](./static/images/website-colours.png)
+
+### Wireframes
+
+<details>
+   <summary> Wireframe of the main page</summary>
+   
+   ![main page](./static/images/wireframe-main-page.png)
+</details>
+<br>
+While creating the main page, having the image take up the entire width of the page didnt look right as the image was not fully being displayed therefore i decided to reduce the size of the image and put a card along the side, this allowed more information on the page without it looking too crowded.
+<br>
+<details>
+   <summary> Wireframe of the build page</summary>
+   
+   ![build page](./static/images/wireframe-model-page.png)
+</details>
+<br>
+while making the build page, most of the page is the same as the wireframe, however i decided to add reviews underneath the image to reduce how croweded the comment box was within the tab box. I have also not included similar builds or other builds by this designer as I did not have enough time and decided this was more important on the designers page.
+
+<details>
+   <summary> Wireframe of the Designers page</summary>
+
+   ![Designers page](./static/images/wireframe-designers-page.png)
+</details>
+
+ On this page i decided to change the users builds into a carousel to reduce blank space on the page, and place the upload build form next to it allowing a user to easily upload an build. I have also added in the ability to like builds and they will show up beneath the form and carosel.
+
+### User Stories
+<details>
+<summary>As a **Lego Designer**, I can **upload and edit my designs** on a website so that I can **share my designs with other people**.</summary>
+<ul>
+<li> Given the user is logged in, they can upload a lego moc design and blueprints (if supplied)
+<li> Given the user is logged in, they can update their lego moc designs
+<li> Given the user is logged in, they can delete their logo moc
+</ul>
+</details>
+<br>
+<details>
+<summary> As a **Lego Designer**, I can **browse and download other peoples designs** on a website so that I can **get ideas for more lego projects**.</summary>
+<ul>
+<li> A user can browse uploaded designs on the website without being logged in
+<li> Given a user is logged in, they can download designs of other users
+</ul>
+</details>
+<br>
+<details>
+<summary> As a **Lego Designer**, I can **comment on other designs** so that **others will know how easy a build is**.</summary>
+<ul>
+<li> Given a user is logged in, they can leave a comment on a design
+</ul>
+</details>
+<br>
+<details>
+<summary> As a **User**, I can **view a designer's page** so that I can **view the other designs they have created**.</summary>
+<ul>
+<li> A user can open a page about a designer/account to view all their other designs.
+</ul>
+</details>
+<br>
+<details>
+<summary>As a **Site Admin** I can **create, read, update and delete designs** so that **I can manage the website content**.</summary>
+<ul>
+<li> Given a logged-in admin, they can create a design page
+<li> Given a logged-in admin, they can read a design page
+<li> Given a logged-in admin, they can edit a design page
+<li> Given a logged-in admin, they can delete a design page
+</ul>
+</details>
+<br>
+<details>
+<summary>
+As a **Site Admin** I can **Approve comments and design pages** so that **other users can view them**</summary>
+<ul>
+<li> Given a logged-in admin, they can approve an uploaded Design page
+<li> Given a logged-in admin, they can approve a Comment
+</ul>
+</details>
+<br>
+
+Out of these user stories, most of the assessment criteria have been met, however some have not, for example being able to look at other users builds have not been implamented yet, the ability to download designs or view the blueprints has not been implamented, and neither has the ability to edit or delete designs once they have been uploaded. These are all things that will be implamented at a later date.
 
 ## Features
-- User registration/login via Django Allauth.
-- Lego build pages with reviews/comments.
-- Summernote WYSIWYG editing.
-- Crispy Bootstrap 5 forms.
-- Static/media served via Whitenoise/Cloudinary (prod).
+### Included Features
+<ul>
+<li> browse sets - On the main page of this website you have the ability to browse the sets that have been uploaded, there is a next button at the bottom to allow you to view more.
+<li> information - once you click on the page of a set, it will give you information about the set and allow you to see the reivews about the set.
+<li> Reviews - within the build page you are able to see the reviews of the page, but you are also able to create a review of the set, each review has a rating out of 5 to say how much you like the set.
+<li> Likes - on each page for the build you have the ability to like the build, this will add it to a list that is available on the account page
+<li> account - when using this website, you are able to create an account and log in, then you have access to the account page. This page will show all the builds you have uploaded (using a carousel) and gives you the ability to upload your own build. Finally you have the ability to look at all the builds you have liked and gives you the ability to remove them from the list using the like button underneath
+</ul>
 
-## Tech Stack
-- Django 4.2, Python 3.x
+### To be included
+<ul>
+<li> delete and edit builds - once a build is uploaded the only way to delete it or edit it is through the admin panel, i would like to implament a way for the user to edit and delete the build.
+<li> delete accounts - accounts can only be accessed by the admins, so to delete an account its the admin that will have to do it. Therefor if the user can delete the account it will allow for better security
+<li> ability to upload and download build files - when a user uploads a build, there is no way for them to upload the blueprints for others to use to view them, and once they are uploaded it would be good for other users to download these files for them build the MOC their self
+<li> ability to look at others accounts and see their builds - when browsing builds if people like the work of one designer then it would be good to have a page where they can view all of their builds.
+</ul>
+
+## Technologies Used
+- Django 4.2, Python 3
 - Allauth, Crispy Forms (Bootstrap 5), Summernote
-- Whitenoise for static files
-- Cloudinary for media (if enabled)
+- Whitenoise to store static files
+- Cloudinary to store media files
 
-## Project Structure
-- `makers_models/` – core settings/urls/wsgi
-- `lego_build/` – app code (views/models/templates/static)
-- `templates/` – base templates
-- `static/` – local static assets (css/js/images)
-- `staticfiles/` – collected static (production)
+## Deployment and Testing
+When you first start the project, create a virtual environment using the settings in the bottom left of vscode and clicking command pallet
 
-## Local Setup
-1) Create venv and install deps:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # or .venv\Scripts\activate on Windows
-   pip install -r requirements.txt
+Once you have created the basic form of django using - django-admin startproject makers_models - python manage.py startapp lego_build
+This will create the file format for the project.
 
-SECRET_KEY=your-secret
-DATABASE_URL=sqlite:///db.sqlite3   # or your DB URL
-CLOUDINARY_URL=...                   # if using Cloudinary
+Once the files have been created click the source control on VS code and initiate the repository on GitHub, this will allow you to save the files online.
 
-python manage.py migrate
-python manage.py runserver
+Install all the files within the requirements.txt file
+<details>
+<ul>
+<li>django
+<li>django_summernote
+<li>django_crispy_form
+<li>django_allauth
+<li>crispy_bootstrap5
+<li>gunicorn
+<li>whitenoise
+<li>psycopg2
+<li>cloudinary
+</ul>
+</details>
 
-python manage.py test
+To create the PostgreSQL database use the link provided by code institute and follow the instuctions, once you have finished copy the api key that is provided.
+
+Create a Cloudinary account and copy the cloudinary api key.
+
+Uploading to heroku
+
+When you select your account on heroku, select new and create new app - give the app the name of makers models and ensure the location is set to Europe - once the app is created, link the app with GitHub by selecting the makers_models repository - within the reveal the convigs vars, and create three, CLOUDINARY_URL, DATABASE_URL and SECRET_KEY using the keys that were created before. - On the deploy page, scroll to manual deployment and deploy click deploy branch, aslong as everything is fine the branch will deploy.
+
+## Testing
+
+### Manual Testing
+
+### Lighthouse Testing
+
+## Credits and References
+ 
+### Images
+#### build images and info
+- [MOC - 10337 Miami Vice Ferarri Testarossa](https://rebrickable.com/mocs/MOC-245226/firas_legocars/10337-miami-vice-ferarri-testarossa/#details)
+- [MOC - Rivendell Display Base](https://rebrickable.com/mocs/MOC-243472/rebelnili/rivendell-display-base/#details)
+- [MOC - Castle Grayskull (2x 31168 + 2x 31171)](https://rebrickable.com/mocs/MOC-244703/anderson_brick_art/castle-grayskull-2x-31168-2x-31171/#details)
+- [MOC - Oak Corner (Modular)](https://rebrickable.com/mocs/MOC-243252/Thibau_g/oak-corner-modular/#details)
+- [MOC - European Harvester Pack](https://rebrickable.com/mocs/MOC-243549/lars_4444/european-harvester-pack/#details)
+- [MOC - Medieval Bakery](https://rebrickable.com/mocs/MOC-108189/Huebre/medieval-bakery/#details)
+- [MOC - JCB Fastrac 4220 RC](https://rebrickable.com/mocs/MOC-236947/JF551/jcb-fastrac-4220-rc/#details)
+- [MOC - Bugatti Atlantic Concept](https://rebrickable.com/mocs/MOC-244292/SKC_LEGO/bugatti-atlantic-concept/#details)
+- [MOC - the Traditional](https://rebrickable.com/mocs/MOC-207865/rebelnili/the-traditional/#details)
+- [MOC - Battlestar Galactica](https://rebrickable.com/mocs/MOC-144769/KK_MOCS/battlestar-galactica/#details)
+- [MOC - LEGO Space Marine Tahu ( Warhammer 40K + BIONICLE )](https://rebrickable.com/mocs/MOC-156725/Demon1408/lego-space-marine-tahu-warhammer-40k-bionicle/#details)
+
+#### Images
+
+- [Lego 3d model](https://www.brothers-brick.com/tag/minimal/)
+- [lego pin](https://rebrickable.com/media/parts/elements/4184169.jpg)
+- [Lego waving character](https://legothemotionpicture.fandom.com/wiki/Emmet_Brickowski#The_LEGO_Movie)
+- [lego city](https://www.youtube.com/watch?v=GLSLUwJn7rk)
+- [logo - created through logo generator](https://pixella.ai/en/home)
+
+### Code
+
+- Chat GPT has been used to help with problem
+- code institute has been used for the basis of the code
+- [W3schools django template](https://www.w3schools.com/django/index.php)
 
 
-Want me to apply this to `README.md`? Approve writes and I’ll save it.
 
 
 
-
-
-
-This is the start of the read me
-
-error - unable to get variables to function within html, due to using a class model i was unsure about the value to use for the html
-
-fix - after speeking to my teacher, he was able to point out what variable i should be using which was object_list.
-
-error - when on heroku, atempting to log in would cause google to flag a Dangerious page claiming the website was phishing for imformation
-
-fix - this has fixed its self with later deployment, i am unsure about why as this did not appear when hosting locally
-
-errors - when trying to submit a comment it would come up with 'ReviewModel' object is not iterable
-
-fix - On the views page, rename reviews within the if statement to review, the wrong variable was being sent into the render() function
-
-error - When editing the reviews, the edit would bring up both the review and the ratings
-
-fix - to fix this i separated the inputs into two separate div's and then in the comments.js file look for id=review_body to ensure that only the text would appear
-
-error - when loading the reviews, if you had uploaded an image it would not display the image but would show the url
-
-temporary fix - remove the option to upload an image and remove the displaying of the image.
-
-error - when trying to load the accounts page it would come up with 'Page not found'
-
-fix - The urls were in the wrong order so it was matching another page before finding the correct one

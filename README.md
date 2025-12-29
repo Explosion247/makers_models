@@ -280,6 +280,7 @@ All issues have been fixed using flake8 linter
 - [Lego waving character](https://legothemotionpicture.fandom.com/wiki/Emmet_Brickowski#The_LEGO_Movie)
 - [lego city](https://www.youtube.com/watch?v=GLSLUwJn7rk)
 - [logo - created through logo generator](https://pixella.ai/en/home)
+- [default lego image](https://www.shutterstock.com/video/clip-1027751504-lego-building-blocks-seamless-loop-no-background?dd_referrer=https%3A%2F%2Fwww.google.com%2F)
 
 ### Code
 

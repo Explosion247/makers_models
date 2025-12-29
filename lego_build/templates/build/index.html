@@ -17,7 +17,7 @@
                     <div class="image-container">
                         <a href="{% url 'build_details' x.slug %}">
                             {% if "placeholder" in x.image.url %}
-                            <img class="card-img-top" src="{% static 'images/default.jpg' %}" alt="placeholder image">
+                            <img class="card-img-top" src="{% static 'images/default-lego-falling.jpg' %}" alt="placeholder image">
                             {% else %}
                             <img class="card-img-top" src="{{ x.image.url }}" alt="{{ x.title }}">
                             {% endif %}

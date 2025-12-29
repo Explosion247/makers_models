@@ -6,6 +6,7 @@ from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
+
 class Build(models.Model):
 
     # add field for piece count and theme e.g. technic
@@ -28,9 +29,10 @@ class Build(models.Model):
 
     class Meta:
         ordering = ["-created_on", 'author']
-    
+
     def __str__(self):
         return f"{self.title} | made by {self.author}"
+
     def total_likes(self):
         return self.liked_by.count()
 
@@ -50,14 +52,19 @@ class ReviewModel(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="commenter"
     )
-    rating = models.PositiveIntegerField(choices=((1, '1 star'), (2, '2 star'), (3, '3 star'), (4, '4 star'), (5, '5 star')))
+    rating = models.PositiveIntegerField(choices=(
+        (1, '1 star'),
+        (2, '2 star'),
+        (3, '3 star'),
+        (4, '4 star'),
+        (5, '5 star')))
     image = CloudinaryField('image', default='placeholder')
     body = models.TextField()
     approved = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         ordering = ["-created_on"]
-    
+
     def __str__(self):
         return f"{self.body} by {self.author}"

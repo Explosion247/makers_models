@@ -6,7 +6,6 @@ from django.utils.text import slugify
 from .models import Build, ReviewModel
 from .forms import ReviewForm, BuildForm
 
-# Create your views here.
 
 class BuildList(generic.ListView):
     queryset = Build.objects.all()
@@ -23,7 +22,6 @@ def build_details(request, slug):
     queryset = Build.objects.filter(status=1)
     build = get_object_or_404(queryset, slug=slug)
     reviews = build.comments.all().order_by("-created_on")
-    
     review_count = build.comments.filter(approved=True).count()
     review_form = ReviewForm()
 
@@ -45,12 +43,13 @@ def build_details(request, slug):
         "review_count": review_count,
         "review_form": review_form,
     }
-    
+
     return render(
         request,
         "build/build_detail.html",
         context
     )
+
 
 def review_edit(request, slug, comment_id):
 
@@ -67,23 +66,26 @@ def review_edit(request, slug, comment_id):
             review.save()
             messages.add_message(request, messages.SUCCESS, 'Review Updated')
         else:
-            messages.add_message(request, messages.ERROR, 'Error updating review')
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 'Error updating review')
 
         return HttpResponseRedirect(reverse('build_details', args=[slug]))
-    
+
+
 def delete_review(request, slug, comment_id):
-    queryset = Build.objects.filter(status=1)
-    build = get_object_or_404(queryset, slug=slug)
     review_form = get_object_or_404(ReviewModel, pk=comment_id)
-    
     if review_form.author == request.user:
         review_form.delete()
         messages.add_message(request, messages.SUCCESS, 'Review deleted!')
     else:
-        messages.add_message(request, messages.ERROR, 'You can only delete your own reviews')
-    
-        return HttpResponseRedirect(reverse('build_details', args=[slug]))
-    
+        messages.add_message(request,
+                             messages.ERROR,
+                             'You can only delete your own reviews')
+
+    return HttpResponseRedirect(reverse('build_details', args=[slug]))
+
+
 def toggle_like(request, slug):
     queryset = Build.objects.filter(status=1)
     build = get_object_or_404(queryset, slug=slug)
@@ -93,6 +95,7 @@ def toggle_like(request, slug):
     else:
         build.liked_by.add(request.user)
     return redirect(request.META.get('HTTP_REFERER', 'home'))
+
 
 def liked_builds(request):
     builds = (
@@ -137,10 +140,15 @@ def build_upload(request):
         build.slug = slug
         build.status = 1
         build.save()
-        messages.add_message(request, messages.SUCCESS, 'Your build has been sucessfully uploaded') 
+        messages.add_message(request,
+                             messages.SUCCESS,
+                             'Your build has been sucessfully uploaded')
         return redirect('account')
     else:
-        messages.add_message(request, messages.ERROR, 'There has been an Error while uploading your build')
+        messages.add_message(
+            request,
+            messages.ERROR,
+            'There has been an Error while uploading your build')
 
     builds = request.user.liked_builds.filter(status=1)
     return render(

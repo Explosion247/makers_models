@@ -1,6 +1,8 @@
 # Makers Models
 
 Heroku link: https://makers-models-e5ef4f65df4a.herokuapp.com/
+Admin username: David
+Admin Password: kopqaw-Fevjis-wasbu8
 
 ## Site Overview
 The aim of this website is to allow people to create and share their MOC's (My Own Creations), while also letting other people browse to find new designs to build or get some idea's of their own.
@@ -37,6 +39,7 @@ If you are not logged in then you will be able to create an account or just brow
 </details>
 <br>
 While creating the main page, having the image take up the entire width of the page didnt look right as the image was not fully being displayed therefore i decided to reduce the size of the image and put a card along the side, this allowed more information on the page without it looking too crowded.
+
 <br>
 <details>
    <summary> Wireframe of the build page</summary>
@@ -46,12 +49,13 @@ While creating the main page, having the image take up the entire width of the p
 <br>
 while making the build page, most of the page is the same as the wireframe, however i decided to add reviews underneath the image to reduce how croweded the comment box was within the tab box. I have also not included similar builds or other builds by this designer as I did not have enough time and decided this was more important on the designers page.
 
+<br>
 <details>
    <summary> Wireframe of the Designers page</summary>
 
    ![Designers page](./static/images/wireframe-designers-page.png)
 </details>
-
+<br>
  On this page i decided to change the users builds into a carousel to reduce blank space on the page, and place the upload build form next to it allowing a user to easily upload an build. I have also added in the ability to like builds and they will show up beneath the form and carosel.
 
 ### Pages
@@ -129,19 +133,20 @@ Out of these user stories, most of the assessment criteria have been met, howeve
 ## Features
 ### Included Features
 <ul>
-<li> browse sets - On the main page of this website you have the ability to browse the sets that have been uploaded, there is a next button at the bottom to allow you to view more.
+<li> Browse sets - On the main page of this website you have the ability to browse the sets that have been uploaded, there is a next button at the bottom to allow you to view more.
 <li> information - once you click on the page of a set, it will give you information about the set and allow you to see the reivews about the set.
 <li> Reviews - within the build page you are able to see the reviews of the page, but you are also able to create a review of the set, each review has a rating out of 5 to say how much you like the set.
 <li> Likes - on each page for the build you have the ability to like the build, this will add it to a list that is available on the account page
-<li> account - when using this website, you are able to create an account and log in, then you have access to the account page. This page will show all the builds you have uploaded (using a carousel) and gives you the ability to upload your own build. Finally you have the ability to look at all the builds you have liked and gives you the ability to remove them from the list using the like button underneath
+<li> Account - when using this website, you are able to create an account and log in, then you have access to the account page. This page will show all the builds you have uploaded (using a carousel) and gives you the ability to upload your own build. Finally you have the ability to look at all the builds you have liked and gives you the ability to remove them from the list using the like button underneath
 </ul>
 
 ### To be included
 <ul>
-<li> delete and edit builds - once a build is uploaded the only way to delete it or edit it is through the admin panel, i would like to implament a way for the user to edit and delete the build.
-<li> delete accounts - accounts can only be accessed by the admins, so to delete an account its the admin that will have to do it. Therefor if the user can delete the account it will allow for better security
-<li> ability to upload and download build files - when a user uploads a build, there is no way for them to upload the blueprints for others to use to view them, and once they are uploaded it would be good for other users to download these files for them build the MOC their self
-<li> ability to look at others accounts and see their builds - when browsing builds if people like the work of one designer then it would be good to have a page where they can view all of their builds.
+<li> Delete and edit builds - once a build is uploaded the only way to delete it or edit it is through the admin panel, i would like to implament a way for the user to edit and delete the build.
+<li> Delete accounts - accounts can only be accessed by the admins, so to delete an account its the admin that will have to do it. Therefor if the user can delete the account it will allow for better security
+<li> Ability to upload and download build files - when a user uploads a build, there is no way for them to upload the blueprints for others to use to view them, and once they are uploaded it would be good for other users to download these files for them build the MOC their self
+<li> Ability to look at others accounts and see their builds - when browsing builds if people like the work of one designer then it would be good to have a page where they can view all of their builds.
+<li> Ability to add an image to reviews - when uploading review it would be nice if people could upload their own attempts of the build 
 </ul>
 
 ## Technologies Used
@@ -190,6 +195,7 @@ Every application that is being build requires tesdting to make sure that everyt
 The first type of testing that will occur will be manual testing, and this helps alot when it comes to reducing errors. as you are creating the application you will do manual testing to ensure it is working before you work on the next section.
 
 The manual testing table is listed below
+
 ![Manual Testing table](./static/images/test-table.png)
 
 ### Validation Testing
@@ -219,7 +225,7 @@ Testing the JavaScript the only error that appeared was one undefined variable, 
 
 ### CSS
 
-when testing the css there were no errors that had appeared
+When testing the css there were no errors that had appeared
 
 ![CSS Validation](/static/images/css-validation.png)
 
@@ -247,7 +253,8 @@ All of these pages have received a similar score within the lighthouse testing, 
 ![Account page lighthouse](/static/images/account-page-lighthouse.png)
 </details>
 
-
+### Pep 8
+All issues have been fixed using flake8 linter
 
 
 ## Credits and References

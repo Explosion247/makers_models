@@ -22,13 +22,7 @@
                             <img class="card-img-top" src="{{ x.image.url }}" alt="{{ x.title }}">
                             {% endif %}
                         </a>
-                        <!-- <div class="image-flash">
-                            
-                                <p class="author">  
-                                    Author: {{ x.author }}
-                                </p>
-                            
-                        </div> -->
+
                     </div>
                     <a href="{% url 'build_details' x.slug %}" class="post-link">
                         <h2 class="card-title">{{ x.title }}</h2>

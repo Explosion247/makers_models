@@ -12,5 +12,5 @@ urlpatterns = [
     path('<slug:slug>/delete_comment/<int:comment_id>',
          views.delete_review, name='comment_delete'),
     path('like/<slug:slug>/', views.toggle_like, name='toggle_like'),
-    
+
 ]

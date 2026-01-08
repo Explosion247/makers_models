@@ -4,6 +4,7 @@ from .models import Build, ReviewModel
 
 # Register your models here.
 
+
 @admin.register(Build)
 class BuildAdmin(SummernoteModelAdmin):
     list_display = ('title', 'slug', 'status', 'created_on')
@@ -11,5 +12,6 @@ class BuildAdmin(SummernoteModelAdmin):
     list_filter = ('status', 'created_on')
     prepopulated_fields = {'slug': ('title',)}
     summernote_fields = ('content',)
+
 
 admin.site.register(ReviewModel)
